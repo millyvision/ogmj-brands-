@@ -1,0 +1,22 @@
+{
+  "name": "ogmj-brands",
+  "private": true,
+  "version": "0.0.0",
+  "description": "OGMJ BRANDS — Intelligent Business Operating System",
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "clean": "turbo run clean"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "turbo": "^2.4.0"
+  },
+  "packageManager": "npm@10.2.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
+}

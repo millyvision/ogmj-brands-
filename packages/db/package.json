@@ -1,0 +1,20 @@
+{
+  "name": "@ogmj/db",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "scripts": {
+    "generate": "supabase gen types typescript --local > index.ts",
+    "push": "supabase db push",
+    "diff": "supabase db diff"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.48.0",
+    "zod": "^4.3.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "typescript": "~5.9.3"
+  }
+}
