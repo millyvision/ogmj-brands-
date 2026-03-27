@@ -1,34 +1,31 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { createMiddlewareClient } from 'next-intl/client'
-import { useAuthStore } from './store/auth-store'
 
-const middlewareConfig = {
-  matcher: [
-    '/((?!api|_next/static|_next/image|_next/chunks|auth|favicon.ico).*)',
-  ],
-}
-
-export default createMiddlewareClient((req) => {
+export default function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl
-  const user = useAuthStore.getState().user
 
-  // Allow access to auth pages
+  // Allow auth pages
   if (pathname.startsWith('/auth/')) {
     return NextResponse.next()
   }
 
-  // Allow access to home page
+  // Allow home page
   if (pathname === '/') {
     return NextResponse.next()
   }
 
-  // Protect all other routes
-  if (!user) {
+  // TODO: Replace this with a real auth check from cookies/session
+  // Example:
+  // const token = req.cookies.get('token')?.value
+  const token = req.cookies.get('token')?.value
+
+  if (!token) {
     return NextResponse.redirect(new URL('/auth/signin', req.url))
   }
 
   return NextResponse.next()
-})
+}
 
-export const config = middlewareConfig
+export const config = {
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)']
+}
